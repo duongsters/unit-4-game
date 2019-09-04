@@ -1,0 +1,10 @@
+body {
+    font-family: 'sh'
+}
+
+.toon-image {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding-left: 16px;
+    padding-right: 16px;
+}

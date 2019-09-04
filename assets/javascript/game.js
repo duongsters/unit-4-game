@@ -16,7 +16,7 @@ function startingToons() {
             fullName: "Darth Maul",
             hP: 100,
             aP: 10,
-            image: "assets/images/dartmaul.png",
+            image: "assets/images/darthmaul.png",
             enemyCounterPower: 5,
         },
         lukeSkywalker: {
@@ -30,7 +30,7 @@ function startingToons() {
             fullName: "Darth Vader",
             hP: 150,
             aP: 15,
-            image: "assets/images/darthvader.jpg.jpeg",
+            image: "assets/images/darthvader.jpg",
             enemyCounterPower: 20,
         },
         oldBen: {
@@ -86,9 +86,9 @@ function userToons() {
         var selectionToon = Object.keys(toons)
             for (var j = 0; j < selectionToon.length; j++) {
     //the 'currentToon' variable will be the user's choice toon; which will then be pointed out through the object
-        var currentToon = selectionToon[j]
-        var toon = toons[currentToon]
-        var userToonArea = toonAreaChoices(toon, currentToon)
+                var currentToon = selectionToon[j]
+                var toon = toons[currentToon]
+                var userToonArea = toonAreaChoices(toon, currentToon)
     //appends the all toon's div elements to the '#user-toon-area' for the user/player to choose
             $('#user-toon-area').append(userToonArea)
         }
@@ -184,7 +184,7 @@ function closeAttacking() {
             $("#restart-choice").show()
             }
     //the last part of the this conditional statement runs in telling the user that they won the current
-            else {
+                else {
                 alert("Won! Defeated " + runGame.computerChoice + "! Choose your next opponent to battle next.")
     //this shall lead the code back to the function of helping the user/player to select another toon
             runOpponentChoice()
@@ -196,38 +196,36 @@ function closeAttacking() {
     return false
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // -----------------DOM(Click) rendering-----------------------------------------
+    
+    //once the game is fully loaded on the browser, $document.ready then runs attaches the DOM elements from game.js to the index.html
+$(document).ready(function() {
+    //points the user click of the variable 'toons' towards the div ID '#user-toon-area'
+    $("#user-toon-area").on("click", ".toon", function() {
+    //variable 'keyChoice' is created to point the user's toon selection to the javascript handler variable "toon-name"      
+            var keyChoice = $(this).attr("toon-name")
+            runGame.userToon = toons[keyChoice]
+    //points the selected 'toon' into the html ID '#toon-choice'
+    $("#toon-choice").append(this)
+
+
+        computerChoice(keyChoice)
+    //using .hide method, the html ID '#toon-selection-area' will be hidden from the browser
+    $("#toon-selection-area").hide()
+    //shows the amount of remaining enemy toons there are left for the user to battle
+            runGame.remainEnemies = Object.keys(toons).length -1
+    //by running the 'runOpponentChoice' funcation at the end, it allows the user to select the enemy/opponent toon
+        runOpponentChoice()
+
+    })
 
 
 
-
-
-
-   // -----Moving & Choosing enemy/opposing toon to different area------//
 
 
 
              //--------'Attack' button rendering----------//
-$("#attack-key").on("click", function(){
+$("#attack-key").on("click", function() {
         //counter increment of attackCount when user attacks
         runGame.attackCount++
         //runs the 'attacking' then 'defending' functions events
@@ -263,3 +261,5 @@ $("#restart-choice").on("click", function(){
 
 //starts RPG game
 runGame()
+
+})
