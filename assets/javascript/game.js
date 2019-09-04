@@ -9,8 +9,7 @@ function runGame() {
     userToons()
 }
 
-
-    // array index of toons provided to play game with its initial attributes
+//array index of toons provided to play with
 function startingToons() {
     return {
         darthMaul: {
@@ -147,12 +146,66 @@ function defending() {
 
 
 // ------------------------updated Wins/Losses rendering-----------------------------------------------
+    //finds whether the opponent or user toons have no more health remaining
+function toonLost(toon) {
+    //by checking the toon's health points are less than or equal to 0 to have a True return value
+    return toon.hP <=0
+}
+    //returns whether the player/user has won the specfic match against the the enemy/opposition toon
+function winning() {
+    //in order to check if the player/user has won the game, it will check if the 'remainingEnemies' variable is equal to 0 to have a True return value
+    return runGame.remainEnemies === 0
+}
+
+
+// ------------------------InGame battle rendering---------------------------------------------------------------
+    
+    // function closeAttacking renders whether or not the attacking period for each toon has been made or not if the return value is True
+function closeAttacking() {
+    // by use of the If and Else if method, you can check whether you lost your toon or if enemy/opponent toon is dead
+    if(toonLost(runGame.userToon)) {
+    //once the user/player loses the game, an alert message notifies the user/player and the restart game button is shown
+        alert("You lost to " + runGame.computerChoice.fullName + " ! Press Restart to play again.")
+            $("#toon-choice").empty()
+            $("#restart-choice").show()
+    return true
+    }
+    //if the return value is False, then the user/player
+        else if (toonLost(runGame.computerChoice)) {
+    //if the 'computerChoice' toon is dead, decrement the remaining toons left for the user/player
+            runGame.remainEnemies--
+    //the '#enemy-opposition' ID is then emptied back to it's initial settings        
+            $("#enemy-opposition").empty()
+
+    //once there are no more toons left for the user/player to fight , then the alert message will tell the user/player that the game has concluded and they've won
+            if(winning()) {
+                alert("Congrats! You breat every toon! Restart to play again.")
+    //the restart button will be shown for the user if they want to play again
+            $("#restart-choice").show()
+            }
+    //the last part of the this conditional statement runs in telling the user that they won the current
+            else {
+                alert("Won! Defeated " + runGame.computerChoice + "! Choose your next opponent to battle next.")
+    //this shall lead the code back to the function of helping the user/player to select another toon
+            runOpponentChoice()
+            }
+    //once the match is done, then the returns True to close out the conditional statement        
+    return true
+        }
+    //return a false value if the game is not over and run this entire function 'closeAttacking' conditionl statement
+    return false
+}
 
 
 
 
 
-// ------------------------InGame battle renderment---------------------------------------------------------------
+
+
+
+
+
+
 
 
 
@@ -180,9 +233,10 @@ $("#attack-key").on("click", function(){
         //runs the 'attacking' then 'defending' functions events
         attacking(runGame.attackCount)
         defending()
-        //messages the user the refreshed health values of the user/player toon
+
+        //shows the user the refreshed health values of the user/player toon on display
             $("#toon-choice .toon-health").text(runGame.userToon.hP)
-        //messages the user the refreshed health values of the enemy/opponent toon
+        //shows the user the refreshed health values of the enemy/opponent toon on display
             $("#enemy-opposition .toon-health").text(runGame.computerToon.hp)
 
         
@@ -196,7 +250,6 @@ $("#attack-key").on("click", function(){
 // -------------Restarting/Starting out the game----------------------------------
 
 $("#restart-choice").on("click", function(){
-    console.log("restart game")
     //runs the 'clearInfo' function to reset all html values before the game is restarted
         clearInfo()
     //hides the restart/reset button from the browser
