@@ -56,11 +56,11 @@ function restartGame() {
 //created clearInfo fuction to run when the user presses the restart button and this function 
 //will clear out all the ID's attributes back to the initialized settingswith the .empty method
 function clearInfo(){
-    $().empty()
-    $().empty()
-    $().empty()
-    $().empty()
-    $().empty()
+    $("#toon-choice").empty()
+    $("#enemy-opposition").empty()
+    $("#ready-to-battle-area .opponent").empty()
+    $("#user-toon-area").empty()
+    $("#toon-selection-area").empty()
 
 }
 
