@@ -239,7 +239,10 @@ $("#attack-key").on("click", function(){
         //shows the user the refreshed health values of the enemy/opponent toon on display
             $("#enemy-opposition .toon-health").text(runGame.computerToon.hp)
 
-        
+        //created an if condition where when the 'closeAttacking' function has ended, it will hide the attack button for any further battles
+        if(closeAttacking()) {
+            $(this).hide()
+        }   
 
 })
 
