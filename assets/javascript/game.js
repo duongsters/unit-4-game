@@ -1,55 +1,49 @@
-// created my inital variables needed before game starts
-
+//created my inital variables needed before game starts
 var toons
 var preGame
 
-
-
-//----function runGame created so that the game starts and runs as expected
-
+//function runGame created so that the game starts and runs as expected
 function runGame() {
     toons = startingToons()
     preGame = restartGame()
-
-    runToons()
-
+    userToons()
 }
 
 
-// array index of toons provided to play game
+// array index of toons provided to play game with its given stats
 function startingToons() {
     return {
-        "darthMaul": {
+        darthMaul: {
             fullName: "Darth Maul",
             hP: 100,
             aP: 10,
-            image: ,
+            image: "assets/images/dartmaul.png",
             enemyCounterPower: 5,
-        }
-        "lukeSkywalker": {
+        },
+        lukeSkywalker: {
             fullName: "Luke Skywalker",
             hP: 120,
             aP: 12,
-            image: ,
+            image: "assets/images/lukeskywalker.png",
             enemyCounterPower: 15,
-        }
-        "darthVader": {
+        },
+        darthVader: {
             fullName: "Darth Vader",
             hP: 150,
             aP: 15,
-            image: ,
+            image: "assets/images/darthvader.jpg.jpeg",
             enemyCounterPower: 20,
-        }
-        "oldBen": {
+        },
+        oldBen: {
             fullName: "Obi Wan Kenobi",
             hP: 180,
             aP: 8,
-            image: ,
+            image: "assets/images/oldben.jpeg",
             enemyCounterPower: 24,
         }
     }
 }
-
+// ---------------------restart functions---------------------------------------
 //function 'restartGame' below is ran to reset the RPG game back to it's starting inital settings 
 function restartGame() {
     return{
@@ -57,7 +51,60 @@ function restartGame() {
         remainEnemies: 0,
         computerToon: null,
         userToon: null,
-        
-    }
+   }
 }
+//created clearInfo fuction to run when the user presses the restart button and this function 
+//will clear out all the ID's attributes back to the initialized settingswith the .empty method
+function clearInfo(){
+    $().empty()
+    $().empty()
+    $().empty()
+    $().empty()
+    $().empty()
+
+}
+
+
+
+// -------------Attack & Defend Functions-----------------------------------------
+
+
+
+
+// ------------------------updated Wins/Losses rendering-----------------------------------------------
+
+
+
+
+
+// ------------------------InGame battle renderment---------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+// -----------------DOM(Click) rendering-----------------------------------------
+
+
+
+
+
+
+   // -----Moving & Choosing enemy/opposing toon to different area------//
+
+
+
+             //--------'Attack' button rendering----------//
+
+
+
+
+
+
+// -------------Restarting/Starting out the game----------------------------------
+
 

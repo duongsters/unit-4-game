@@ -19,22 +19,42 @@
 
 <body>
 
-<!-- Create a main container here to contain all Div Class IDs and whatnot -->
-
-
+<!-- Created a main container here to contain all Div Class IDs and whatnot -->
+<div class="game-title">Star Wars: jQuery Style!</div>
+<div id="mainContainer">
 
 <!-- portion where the character templates for the user to select the game characters to play on here -->
+        <div id="toon-area">
+            <div class="selectionSection">Choose a Toon!</div>
 
+            <div id="user-toon-area"></div>
+        </div>
 
+        <div id="toon-chosen-area">
+            <div class="selectionSection">Chosen Toon</div>
+            <!-- User's selected toon appended below -->
+            <div id="toon-choice"></div>
+        </div>
 
 <!-- portion where the enemy game characters template cards are placed chosen once user picks a game characters are chosen here after -->
+        <div id="remaining-toons-area">
+            <div class="selectionSection">Choose an Enemy Toon!</div>
+        </div>
 
-
-
+        <!-- portion where the Attack button will appear -->
+        <div class="selectionSection">Arena Area</div>
+        <div id="arena-area">
+            <button id="attack-key">PRESS TO ATTACK!</button>
+        </div>
 <!-- DEFENDER AREA: Where the selected enemy game character card template will be placed before starting the game -->
+        <div id="defense">
+            <div class="selectionSection">
+                <!-- Chosen enemy toon appended below here -->
+                <div id="enemy-opposition"></div>
+            </div>
+        </div>
 
-
-
+</div>
 <!-- Where to put the game output message for the results of win/loss of battle and also where the restart game button is -->
 
 </body>
