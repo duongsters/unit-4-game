@@ -43,7 +43,7 @@ function startingToons() {
         }
     }
 }
-// ---------------------restart functions---------------------------------------
+// ---------------------restart/reset functions---------------------------------------
 //function 'restartGame' below is ran to reset the RPG game back to it's starting inital settings 
 function restartGame() {
     return{
@@ -61,7 +61,6 @@ function clearInfo(){
     $("#ready-to-battle-area .opponent").empty()
     $("#user-toon-area").empty()
     $("#toon-selection-area").empty()
-
 }
 
 
@@ -107,4 +106,14 @@ function clearInfo(){
 
 // -------------Restarting/Starting out the game----------------------------------
 
-
+$("#restart-choice").on("click.reset", function(){
+    console.log("restart game")
+//runs the 'clearInfo' function to reset all html values before the game is restarted
+    clearInfo()
+//hides the restart/reset button from the browser
+    $(this).hide()
+//restarts the game
+        runGame()
+})
+//starts RPG game
+runGame()
