@@ -57,11 +57,46 @@ function restartGame() {
 //will clear out all the ID's attributes back to the initialized settingswith the .empty method
 function clearInfo(){
     $("#toon-choice").empty()
-    $("#enemy-opposition").empty()
-    $("#ready-to-battle-area .opponent").empty()
     $("#user-toon-area").empty()
     $("#toon-selection-area").empty()
+    $("#enemy-opposition").empty()
+    $("#ready-to-battle-area .opponent").empty()
 }
+// --------------------------Overall Game Optimization Functions------------------------------------------------------------------
+
+function toonAreaChoices (toon, selectionToon) {
+    var userToonArea = $("<div class ='toon' toon-name='" + selectionToon + "'>")
+    var toonName = $("<div class = 'toon-name'>").text(toon.fullName)
+    var toonHP = $("<div class ='toon-health'>").text(toon.hP)
+    var toonImg = $ ("<img alt='image' class='character-image'>").attr('src', toon.image)
+    userToonArea.append(toonName).append(toonImg).append(toonHP)
+        return userToonArea
+}
+
+function userToons() {
+    var selectionToon = Object.keys(toons)
+        for (var j = 0; j < selectionToon.length; j++) {
+                var currentToon = selectionToon[j]
+                var toon = toons[currentToon]
+                var userToonArea = toonAreaChoices(toon, currentToon)
+            $('#user-toon-area').append(userToonArea)
+        }
+
+function computerChoice (computerToonChoice) {
+    var computerSelectedToon = Object.currentToon(toons)
+        for (var j = 0; j < computerSelectedToon.length; j++) {
+            if (computerSelectedToon[j] !== computerToonChoice) {
+                var opponentToon = computerSelectedToon[j]
+                var opponent = toons[opponentToon]
+                var opponentToonArea = toonAreaChoices(opponent, opponentToon)
+                $(opponentToonArea).addClass("opponent")
+                $("#ready-to-battle-area").append(opponentToonArea)
+            }
+        }
+}
+}
+
+
 
 
 
@@ -109,11 +144,12 @@ function clearInfo(){
 $("#restart-choice").on("click.reset", function(){
     console.log("restart game")
 //runs the 'clearInfo' function to reset all html values before the game is restarted
-    clearInfo()
+        clearInfo()
 //hides the restart/reset button from the browser
-    $(this).hide()
+        $(this).hide()
 //restarts the game
         runGame()
 })
+
 //starts RPG game
 runGame()
