@@ -58,11 +58,11 @@ function restartGame() {
     //created clearInfo fuction to run when the user presses the restart button and this function 
     //will clear out all the ID containers back to the initialized settings with the .empty method
 function clearInfo(){
-    $("#toon-choice").empty()
-    $("#user-toon-area").empty()
-    $("#toon-selection-area").empty()
-    $("#enemy-opposition").empty()
-    $("#ready-to-battle-area .opponent").empty()
+            $("#toon-choice").empty()
+            $("#user-toon-area").empty()
+            $("#toon-selection-area").empty()
+            $("#enemy-opposition").empty()
+            $("#ready-to-battle-area .opponent").empty()
 }
 
 
@@ -72,51 +72,77 @@ function clearInfo(){
     //toonAreaChoices was made to help make divs dynamically within the game.js file and index.html file
 function toonAreaChoices (toon, selectionToon) {
     //For us to point back to the .on click events, 'toon-name' was created dynamically within the 'userToonArea' variable
-    var userToonArea = $("<div class ='toon' toon-name='" + selectionToon + "'>")
-    var toonName = $("<div class = 'toon-name'>").text(toon.fullName)
-    var toonHP = $("<div class ='toon-health'>").text(toon.hP)
-    var toonImg = $("<img alt='image' class='character-image'>").attr('src', toon.image)
+        var userToonArea = $("<div class ='toon' toon-name='" + selectionToon + "'>")
+        var toonName = $("<div class = 'toon-name'>").text(toon.fullName)
+        var toonHP = $("<div class ='toon-health'>").text(toon.hP)
+        var toonImg = $("<img alt='image' class='character-image'>").attr('src', toon.image)
     //this will be useful in appending the available toon's name, image and health status divs dynamically for the user/player to view
     userToonArea.append(toonName).append(toonImg).append(toonHP)
-        return userToonArea
+            return userToonArea
 }
 
     //just distributes all the toons from the array index to the '#user-toon-area' ID container to be made available for the user/player to choose
 function userToons() {
     //the 'selectionToon' variable will run through the 'toon' array index then distribute each toon to the toon-chosen-area for the user/player
-    var selectionToon = Object.keys(toons)
-        for (var j = 0; j < selectionToon.length; j++) {
+        var selectionToon = Object.keys(toons)
+            for (var j = 0; j < selectionToon.length; j++) {
     //the 'currentToon' variable will be the user's choice toon; which will then be pointed out through the object
-                var currentToon = selectionToon[j]
-                var toon = toons[currentToon]
-                var userToonArea = toonAreaChoices(toon, currentToon)
+        var currentToon = selectionToon[j]
+        var toon = toons[currentToon]
+        var userToonArea = toonAreaChoices(toon, currentToon)
     //appends the all toon's div elements to the '#user-toon-area' for the user/player to choose
             $('#user-toon-area').append(userToonArea)
         }
+    }
 
     //just distributes all the remaining available toons for the enemy/opponent to the "#ready-to-battle-area"
 function computerChoice (computerToonChoice) {
-    var computerSelectedToon = Object.currentToon(toons)
-        for (var j = 0; j < computerSelectedToon.length; j++) {
-            if (computerSelectedToon[j] !== computerToonChoice) {
+        var computerSelectedToon = Object.currentToon(toons)
+            for (var j = 0; j < computerSelectedToon.length; j++) {
+                if (computerSelectedToon[j] !== computerToonChoice) {
     //grabs the specific chosen enemy/opposition toon out of the array index
-                var opponentToon = computerSelectedToon[j]
-                var opponent = toons[opponentToon]
-                var opponentToonArea = toonAreaChoices(opponent, opponentToon)
-                $(opponentToonArea).addClass("opponent")
+        var opponentToon = computerSelectedToon[j]
+        var opponent = toons[opponentToon]
+        var opponentToonArea = toonAreaChoices(opponent, opponentToon)
+            $(opponentToonArea).addClass("opponent")
     //within the paremeters of the remaining toons left after the user/player toon has chosen & the chosen enemy toon; those 2 elements will be appended the "#ready-to-battle-area"
-                $("#ready-to-battle-area").append(opponentToonArea)
+            $("#ready-to-battle-area").append(opponentToonArea)
             }
         }
+    }
+
+    //function runOpponentChoice runs by the player/user in picking their enemy/opponent they want to fight against by click of the enemy images available
+function runOpponentChoice() {
+            $(".opponent").on("click", function(){
+    //variable enemyChoice will find and return the toon-name value within that specific class ID container
+                var enemyChoice = $(this).attr("toon-name")
+    //by resetting the toons remaining left to choose by preGame.computerToon, this willgive the user an update dlist of arrays of toons left to be the enemy/opponent for them
+                preGame.computerToon = toons[enemyChoice]
+    //the chosen enemy/opponent toon is then directed back to the "enemy-opposition" ID container
+            $("#enemy-opposition").append(this)
+
+    //once the enemy/opponent toon is chosen and moved to the next area, the attack buttons should pop up
+            $("#attack-key").show()
+            $(".opponent").off("click")
+
+    })
 }
+
+
+
+
+
+// -------------.toons Attack & Defend Functions-----------------------------------------
+    //renders the amount of health the enemy/opponent toon has throughout the match
+function attacking (attackCount) {
+    //by subtracting the inital amount of the health enemy/opponent has by the user toon's 'attack-count' along with the attack power to find the updated health value
+    runGame.computerChoice.hP -= runGame.userToon.aP * attackCount
 }
-
-
-
-
-
-// -------------Attack & Defend Functions-----------------------------------------
-
+    //renders the value of the user/player toon's health after the enemy toon has counterattacked back
+function defending() {
+    //finds the updated health values of the user/player's toon by subtracting the inital health points of the user/player toon's to the enemy/opponent's toon 'enemyCounterPower'
+    runGame.userToon.hP -= runGame.computerChoice.enemyCounterPower
+}
 
 
 
@@ -128,16 +154,7 @@ function computerChoice (computerToonChoice) {
 
 // ------------------------InGame battle renderment---------------------------------------------------------------
 
-    //renders the amount of health the enemy/opponent toon has throughout the match
-function attacking (attackCount) {
-    //by subtracting the inital amount of the health enemy/opponent has by the user toon's 'attack-count' along with the attack power to find the updated health value
-    runGame.computerChoice.hP -= runGame.userToon.aP * attackCount
-}
-    //renders the value of the user/player toon's health after the enemy toon has counterattacked back
-function defending() {
-    //finds the updated health values of the user/player's toon by subtracting the inital health points of the user/player toon's to the enemy/opponent's toon 'enemyCounterPower'
-    runGame.userToon.hP -= runGame.computerChoice.enemyCounterPower
-}
+
 
 
 
@@ -158,10 +175,17 @@ function defending() {
 
              //--------'Attack' button rendering----------//
 $("#attack-key").on("click", function(){
-    runGame.attackCount++
-    attacking(runGame.attackCount)
-    defending()
+        //counter increment of attackCount when user attacks
+        runGame.attackCount++
+        //runs the 'attacking' then 'defending' functions events
+        attacking(runGame.attackCount)
+        defending()
+        //messages the user the refreshed health values of the user/player toon
+            $("#toon-choice .toon-health").text(runGame.userToon.hP)
+        //messages the user the refreshed health values of the enemy/opponent toon
+            $("#enemy-opposition .toon-health").text(runGame.computerToon.hp)
 
+        
 
 })
 
@@ -173,11 +197,11 @@ $("#attack-key").on("click", function(){
 
 $("#restart-choice").on("click", function(){
     console.log("restart game")
-//runs the 'clearInfo' function to reset all html values before the game is restarted
+    //runs the 'clearInfo' function to reset all html values before the game is restarted
         clearInfo()
-//hides the restart/reset button from the browser
+    //hides the restart/reset button from the browser
         $(this).hide()
-//restarts the game
+    //restarts the game
         runGame()
 })
 
